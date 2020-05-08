@@ -51,88 +51,100 @@
       // functions go here
       calculateResults: function() {
 
-      let questions = this.questions;
+        this.showError = true;
 
-      if (questions[0].checked) {
-        this.showUnemployment = true;
-      }
+        let questions = this.questions;
 
-      if (questions[1].checked) {
-        this.showUnemployment = true;
-        this.showFreelancer = true;
-      }
+        if (questions[0].checked) {
+          this.showUnemployment = true;
+          this.showError = false;
+        }
 
-      if (questions[2].checked) {
-        this.showUnemployment = true;
-      }
+        if (questions[1].checked) {
+          this.showUnemployment = true;
+          this.showFreelancer = true;
+          this.showError = false;
+        }
 
-      if (questions[3].checked) {
-        this.showUnemployment = true;
-      }
+        if (questions[2].checked) {
+          this.showUnemployment = true;
+          this.showError = false;
+        }
 
-      if (questions[4].checked) {
-        this.showUnemployment = true;
-      } 
+        if (questions[3].checked) {
+          this.showUnemployment = true;
+          this.showError = false;
+        }
 
-      if (questions[5].checked) {
-        this.showUnemployment = true;
-      }
+        if (questions[4].checked) {
+          this.showUnemployment = true;
+        } 
 
-      if (questions[6].checked) {
-        this.showUnemployment = true;
-      }
+        if (questions[5].checked) {
+          this.showUnemployment = true;
+          this.showError = false;
+        }
 
-      if (questions[7].checked) {
-        this.showSmallBiz = true;
-      }
+        if (questions[6].checked) {
+          this.showUnemployment = true;
+          this.showError = false;
+        }
 
-      if (questions[8].checked) {
-        this.showUnemployment = true;
-      }
+        if (questions[7].checked) {
+          this.showSmallBiz = true;
+          this.showError = false;
+        }
 
-      if (questions[9].checked) {
-        this.showUnemployment = true;
-      }
+        if (questions[8].checked) {
+          this.showUnemployment = true;
+          this.showError = false;
+        }
 
-      if (questions[10].checked) {
-        this.showRent = true;
-      }
+        if (questions[9].checked) {
+          this.showUnemployment = true;
+          this.showError = false;
+        }
 
-      if (questions[11].checked) {
-        this.showStudentLoans = true;
-      }
+        if (questions[10].checked) {
+          this.showRent = true;
+          this.showError = false;
+        }
 
-      if (questions[12].checked) {
-        this.showFood = true;
-      }
+        if (questions[11].checked) {
+          this.showStudentLoans = true;
+          this.showError = false;
+        }
 
-      if (questions[13].checked) {
-        this.showHealthInsurance = true;
-      }
+        if (questions[12].checked) {
+          this.showFood = true;
+          this.showError = false;
+        }
 
-      if (questions[14].checked) {
-        this.showWithdrawal = true;
-      }
+        if (questions[13].checked) {
+          this.showHealthInsurance = true;
+          this.showError = false;
+        }
 
-        // this.reset();
+        if (questions[14].checked) {
+          this.showWithdrawal = true;
+          this.showError = false;
+        }
 
       },
       reset: function() {
-        this.showRideShare = false;
-        this.showTutor = false;
-        this.showShopper = false;
-        this.showWalker = false;
-        this.showHandler = false;
-        this.showAssistant = false;
-        this.computerYesNo = '';
-        this.carYesNo = '';
-
-        this.hideQuestion();
+        this.showUnemployment = false;
+        this.showFreelancer = false;
+        this.showSmallBiz = false;
+        this.showFood = false;
+        this.showRent = false;
+        this.showStudentLoans = false;
+        this.showHealthInsurance = false;
+        this.showWithdrawal = false;
+        this.showError = false;
       },
       resetAllButton: function() {
 
         this.reset();
-        this.hideQuestion();
 
         for (var i=0;i<this.questions.length;i++) {
           if (this.questions[i].checked) {

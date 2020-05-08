@@ -30,10 +30,10 @@
     </div>
 
     <button v-on:click="calculateResults">submit</button>
-    <!-- <button class="reset" v-on:click="resetAllButton">reset</button> -->
+    <button class="reset" v-on:click="resetAllButton">reset</button>
 
     <div class="error" v-if="showError==true">
-        <p class="body-text">You didn't select anything! Please select at least one condition and try again.</p>
+        <p class="body-text">You didn't select anything! Please select at least one condition and try again. If none of these apply to you, you may not be eligible for help, but there are still <a href="https://grow.acorns.com/steps-coronavirus-financial-impact/">steps you can take to help yourself financially</a> during the pandemic.</p>
     </div>
 
     <div class="results">
