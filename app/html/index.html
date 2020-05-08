@@ -11,7 +11,7 @@
 
   <!--build:css css/styles.min.css-->
   <link href="https://fonts.googleapis.com/css?family=Lato:300,400,700" rel="stylesheet">
-  <link rel="stylesheet" href="css/side-hustle-quiz_styles.css">
+  <link rel="stylesheet" href="css/covid-financial-help_styles.css">
   <!--endbuild-->
 
 </head>
@@ -30,81 +30,220 @@
     </div>
 
     <button v-on:click="calculateResults">submit</button>
-    <button class="reset" v-on:click="resetAllButton">reset</button>
-
-    <div class="follow-up-questions">
-
-        <div id="rideshare-follow" v-show="showRideShareQuestion==true" key="carq">
-            <p class="body-text">
-                Do you have a 4-door car that can pass a safety inspection?
-            </p>
-            <input type="radio" id="car-yes" name="car-yes-no" v-model="carYesNo" value="yes" v-on:change="hideQuestion">
-            <label for="car-yes">Yes</label>
-            <input type="radio" id="car-no" name="car-yes-no" v-model="carYesNo" value="no" v-on:change="findFallback(result, runnerUp, runnerUp2)">
-            <label for="car-no">No</label>
-        </div>
-
-        <div id="assistant-follow" v-show="showAssistantQuestion==true" key="assistantq">
-            <p class="body-text">
-                Do you have access to a computer to use for work?
-            </p>
-            <input type="radio" id="computer-yes" v-model="computerYesNo" value="yes" v-on:change="hideQuestion">
-            <label for="computer-yes">Yes</label>
-            <input type="radio" id="computer-no" v-model="computerYesNo" value="no" v-on:change="findFallback(result, runnerUp, runnerUp2)">
-            <label for="computer-no">No</label>
-        </div>
-
-
-    </div>
+    <!-- <button class="reset" v-on:click="resetAllButton">reset</button> -->
 
     <div class="error" v-if="showError==true">
-        <p class="body-text">You didn't select anything! Please select at least one attribute and try again.</p>
+        <p class="body-text">You didn't select anything! Please select at least one condition and try again.</p>
     </div>
 
     <div class="results">
         <transition name="component-fade" mode="out-in">
-            <result
-                v-if="carYesNo=='yes'"
-                title="Ride-share driver"
-                image="https://fm.cnbc.com/applications/cnbc.com/resources/files/2019/12/12/rideshare-driver.jpg"
-                content="Sounds like <a href='https://grow.acorns.com/make-money-with-your-car/'>driving a ride-share car</a> is a good match for you. You’ll need a car that can pass a safety inspection. Requirements vary by city for both <a href='https://www.ridesharingdriver.com/lyft-driver-requirements-meaning/'>Lyft</a> and <a href='https://rideshareapps.com/uber-vehicle-requirements-for-2019/'>Uber</a>, and you’ll need to agree to a background check. You can choose <a href='https://grow.acorns.com/10-summer-side-hustles-that-can-help-you-earn-an-extra-1000-dollars/'>your own hours</a>, and a Lyft spokesperson reports a national average of $30 per hour including tips when drivers are booked. You’ll need to feel comfortable sharing a close space with strangers and be skilled at keeping your focus during long rides. "
-                key="rideshare"
-            ></result>
-            <result
-                v-else-if="showTutor==true"
-                title="Tutor"
-                image="https://fm.cnbc.com/applications/cnbc.com/resources/files/2019/12/12/tutor.jpg"
-                content="Sounds like you’re a natural teacher. You can <a href='https://grow.acorns.com/flexible-jobs-that-can-fit-into-your-tight-schedule/'>earn money</a> while also enjoying the satisfaction of watching someone learn. And your sessions can range from <a href'https://grow.acorns.com/10-summer-side-hustles-that-can-help-you-earn-an-extra-1000-dollars/'>teaching</a> a child how to do better in their geometry homework to giving an adult their first piano lesson. You can earn <a href='https://www.care.com/c/stories/10229/how-much-does-a-tutor-cost/'>$30 to $85</a> per hour depending on your background, according to Care.com. You may be able to hold some lessons in <a href='https://grow.acorns.com/side-hustles-you-can-do-from-home/?&qsearchterm=side%20hustle%20'>your space</a> or online using a tutoring platform. Or you could offer to travel to a student's home."
-                key="tutor"
-            ></result>
-            <result
-                v-else-if="showShopper==true"
-                title="Grocery shopper"
-                image="https://fm.cnbc.com/applications/cnbc.com/resources/files/2019/12/12/grocery-shopper.jpg"
-                content="If you enjoy finding deals at <a href='https://grow.acorns.com/costco-sams-club-and-bjs-savings-for-holiday-parties/'>warehouse clubs, for example</a>, working as a <a href='https://grow.acorns.com/easy-side-hustles-to-start/'>grocery shopper</a> could be a good match for you. With apps like Shipt and Instacart, you log on when you like and check if there’s an available assignment. Then you purchase the requested items and deliver them to your client’s home. The <a href='https://www.cnbc.com/2019/02/06/instacart-changes-policy-will-not-use-tips-to-subsidize-worker-pay-.html'>minimum per-job payment</a> is $5-$10 for Instacart, depending on the assignment. And according to <a href='https://www.glassdoor.com/Salary/Instacart-Administrative-Salaries-EI_IE714486.0,9_DEPT1001.htm'>Glassdoor</a>, you can earn an average hourly rate of $14 with that platform. Shoppers can earn tips in addition to those payments."
-                key="shopper"
-            ></result>
-            <result
-                v-else-if="showWalker==true"
-                title="Dog walker"
-                image="https://fm.cnbc.com/applications/cnbc.com/resources/files/2019/12/12/dog-walker.jpg"
-                content="You could make a great dog walker. You’ll get to meet people in your neighborhood, get friendly with their pets, and <a href='https://grow.acorns.com/10-summer-side-hustles-that-can-help-you-earn-an-extra-1000-dollars/'>stroll around the area</a>. Be prepared for people to notice you walking down the street <a href='https://grow.acorns.com/ryan-stewart-started-ryan-for-dogs-as-a-side-hustle/'>with multiple animals</a>, which you could either ignore or welcome as a conversation starter. PayScale lists the average hourly pay for a dog walker <a href='https://www.payscale.com/research/US/Job=Dog_Walker/Hourly_Rate'>as $14.51</a>, and professional dog walker Ryan Stewart says he can make <a href='https://grow.acorns.com/ryan-stewart-started-ryan-for-dogs-as-a-side-hustle/?&qsearchterm=side%20hustle%20'>up to $25</a> depending on the neighborhood.  You can start by advertising on social media, putting a sign in the lobby of your building or local community center, and promoting yourself on virtual neighborhood discussion boards. "
-                key="walker"
-            ></result>
-            <result
-                v-else-if="showHandler==true"
-                title="Task handler"
-                image="https://fm.cnbc.com/applications/cnbc.com/resources/files/2019/12/12/task-handler.jpg"
-                content="If you enjoy assembling furniture, cleaning homes, or planting flowers, you’re a good candidate for <a href='https://grow.acorns.com/turn-a-hobby-into-a-top-side-hustle-and-make-money/?&qsearchterm=side%20hustle%20'>joining TaskRabbit</a> or <a href='https://www.wonolo.com/'>Wonolo</a>. You connect with clients via the site (with a 30% fee per gig). From there, you can earn $40-$80 per hour for assembling Ikea furniture, and you can also get paid for picking up dry cleaning or <a href='https://grow.acorns.com/side-job-ideas-non-creative-people/'>standing in line for tickets</a>. A <a href='https://www.earnest.com/blog/sharing-economy-income-data/'>2017 survey</a> shows workers averaging $380 per month. Taskers set their availability and work preferences (location, hourly rates, task categories, etc.) within the Tasker app up to 17 days in advance, and clients can choose from a list of available Taskers in their area. The client then sends a booking request to the Tasker, which opens a virtual chat between the client and Tasker."
-                key="handler"
-            ></result>
-            <result
-                v-else-if="computerYesNo=='yes'"
-                title="Virtual assistant"
-                image="https://fm.cnbc.com/applications/cnbc.com/resources/files/2019/12/12/virtual-assistant.jpg"
-                content="As a virtual assistant, you can make yourself indispensable <a href='https://grow.acorns.com/side-hustles-you-can-do-from-home/'>without leaving the house</a>. You can <a href='https://grow.acorns.com/side-hustles-that-could-earn-you-at-least-1000-a-month/'>help CEOs</a> and other professionals set up meetings, organize their calendars, and handling social media accounts. You will need to be super-organized and responsible, reminding yourself that your client is counting on you to help their life run smoothly. You can earn an average of <a href='https://www.indeed.com/salaries/virtual-assistant-Salaries'>$16.24 per hour</a> according to Indeed, and scale your business to eventually include virtual project managing and coaching. "
-                key="assistant"
-            ></result>
+            <div v-if="showUnemployment==true" title="Unemployment Insurance" key="unemployment">
+                <h2>Unemployment Insurance</h2>
+                <p class="body-text">
+                    The stimulus bill made significant changes to the eligibility requirements for unemployment insurance and increased benefit amounts until July 31.
+                </p>
+                <p class="body-text">
+                    You’re likely <a href="https://grow.acorns.com/coronavirus-how-to-file-an-unemployment-claim">eligible for unemployment benefits</a> if:
+                </p>
+                <ul>
+                    <li class="body-text">
+                        <p class="body-text">
+                            You were laid off or furloughed
+                        </p>
+                    </li>
+                    <li class="body-text">
+                        <p class="body-text">
+                            Your employer shut down
+                        </p>
+                    </li>
+                    <li class="body-text">
+                        <p class="body-text">
+                            Your hours or wages have been cut
+                        </p>
+                    </li>
+                    <li class="body-text">
+                        <p class="body-text">
+                            You are a freelancer or independent contractor who is out of work
+                        </p>
+                    </li>
+                    <li class="body-text">
+                        <p class="body-text">
+                            You are out of work because you contracted Covid-19, are self-quarantining due to exposure, or are caring for someone who has the virus, and don’t have access to paid sick leave
+                        </p>
+                    </li>
+                    <li class="body-text">
+                        <p class="body-text">
+                            You had to quit your job to take care of a dependent due to the closure of schools, day cares, or another facility
+                        </p>
+                    </li>
+                    <li class="body-text">
+                        <p class="body-text">
+                            The start date of your new job was delayed or canceled
+                        </p>
+                    </li>
+                    <li class="body-text">
+                        <p class="body-text">
+                            The primary earner in your household has died from Covid-19
+                        </p>
+                    </li>
+                </ul>
+                <p class="body-text">
+                    Those who can work from home, have access to paid leave, are new to the workforce, quit their job, were fired, or are undocumented are ineligible.
+                </p>
+                <p class="body-text">
+                    Workers whose hours have been cut may be eligible for partial benefits.
+                </p>
+                <p class="body-text">
+                    Unemployment insurance is managed at the state level, so the specific benefits available to you will vary depending on where you live. <a href="https://www.dol.gov/coronavirus/unemployment-insurance#find-state-unemployment-insurance-contacts"> Check with your state</a> to find out how to file and how much you are eligible to receive.
+                </p>
+                <p class="body-text">
+                    In addition to the usual amounts provided by the state, the stimulus bill provides an extra $600 per week through July 31 (back-dated to March 27) for everyone who qualifies for unemployment benefits. Your state’s normal time frame will also be extended by 13 weeks.
+                </p>
+                <p class="body-text">
+                    <a href="https://www.cnbc.com/2020/04/09/heres-what-you-need-to-know-about-unemployment-benefits.html">If you think you’re eligible</a>, be sure to file for unemployment benefits as soon as possible. Expanded coverage is available to workers who were newly eligible for benefits starting the week of January 27 and through the end of the year.
+                </p>
+            </div>
+        </transition>
+        <transition name="component-fade" mode="out-in">
+            <div v-if="showFreelancer==true" title="Freelancers and independent contractors" key="unemployment">
+                <h2>Freelancers and independent contractors</h2>
+                <p class="body-text">
+                    Freelancers, independent contractors, and gig workers who are normally ineligible for many benefits have <a href="https://www.nytimes.com/article/self-employed-workers-unemployment-coronavirus-stimulus-package.html">access to some benefits under the stimulus bill</a>.
+                </p>
+                <p class="body-text">
+                    If you’re self-employed, you now have access to paid sick leave in the form of a tax credit. You can claim up to 10 sick days from April 1 through the end of the year, and you don’t have to prove you have a Covid-19 diagnosis to claim them. The credit must be claimed on your 2020 tax return but to get relief sooner, you can reduce your quarterly tax payments by the amount of your leave taken.
+                </p>
+                <p class="body-text">
+                    To calculate your credit, determine your average daily income by taking your net earnings and dividing that number by 260. Then multiply the number of sick days taken by that figure or $511, whichever is less.
+                </p>
+                <p class="body-text">
+                    For instance, say you made $50,000 last year and take two sick days in the second quarter. You would divide your total by 260 to get $192.31 as your daily salary. Multiplying that by two gets you $384.60. This is the total you can deduct from your second-quarter estimated tax payment.
+                </p>
+                <p class="body-text">
+                    You are eligible to receive a credit of 67% of your salary, up to $200 per day, if you are caring for someone who has the virus or a dependent who is out of school or day care. If you’re caring for a dependent, you can claim this credit for up to 50 days.
+                </p>
+                <p class="body-text">
+                    Self-employed workers are also <a href="https://www.cnbc.com/2020/03/26/coronavirus-relief-bill-what-to-know-about-unemployment-benefits.html"> eligible for unemployment benefits</a> (see the section above), but might have trouble getting access to them as states modify their systems to accommodate this new benefit. Apply for benefits through the <a href="https://www.dol.gov/coronavirus/unemployment-insurance#find-state-unemployment-insurance-contacts">unemployment program in the state where you work</a>.
+                </p>
+                <p class="body-text">
+                    The process to get approved will depend on your state and will likely take longer than it does for traditional employees. However, you should receive retroactive benefits once you are approved.
+                </p>
+                <p class="body-text">
+                    Self-employed workers who are approved for unemployment benefits will also receive the extra $600 weekly from the federal government.
+                </p>
+            </div>
+        </transition>
+        <transition name="component-fade" mode="out-in">
+            <div v-if="showSmallBiz==true" title="Small business loans" key="small-business">
+                <h2>Small business loans</h2>
+                <p class="body-text">
+                    If you own a business or nonprofit with fewer than 500 employees, you are eligible for <a href="https://www.sbc.senate.gov/public/index.cfm/guide-to-the-cares-act">two types of aid through the stimulus bill</a>.
+                </p>
+                <p class="body-text">
+                    The <a href="http://sba.gov/funding-programs/loans/coronavirus-relief-options/paycheck-protection-program-ppp#section-header-5">paycheck protection program</a> (PPP) provides a forgivable loan to cover eight weeks of payroll costs and some additional expenses, like rent and utilities. This loan does not have to be paid back if it’s used to retain or hire back workers and not more than 25% is used for nonpayroll costs. Businesses can borrow up to two months of their average monthly payroll, plus an additional 25%, up to $10 million.
+                </p>
+                <p class="body-text">
+                    <a href="https://www.cnbc.com/2020/05/03/coronavirus-kudlow-says-might-need-third-round-of-ppp-small-business-loans.html">The PPP has been in high demand</a>, with a second round that launched on April 27 and provided an additional $310 billion on top of the $350 billion in the initial bill. If you want to apply, act quickly, as there’s no guarantee there will be a third round of funding. You can apply for a PPP loan through a bank or other lender.
+                </p>
+                <p class="body-text">
+                    The <a href="https://www.sba.gov/funding-programs/loans/coronavirus-relief-options/economic-injury-disaster-loan-emergency-advance">economic injury disaster loan</a> program offers low-interest loans to cover business expenses in the case of disaster. The stimulus bill provided additional funding for and relaxed some of the usual requirements of this long-standing program.
+                </p>
+                <p class="body-text">
+                    Businesses can apply for up to $10,000 as a grant, additional money will need to be paid back on a term of up to 30 years. Like the PPP, demand is high and funding could run out, so apply as soon as possible. You can apply for these loans on the <a href="https://covid19relief.sba.gov/#/">program website</a>.
+                </p>
+            </div>
+        </transition>
+        <transition name="component-fade" mode="out-in">
+            <div v-if="showRent==true" title="Renters and homeowners" key="renters">
+                <h2>Renters and homeowners</h2>
+                <p class="body-text">
+                    Thirty-five states and Washington, D.C., <a href="https://grow.acorns.com/paying-rent-during-coronavirus/">have enacted eviction freezes</a> for those who cannot make rent payments.
+                </p>
+                <p class="body-text">
+                    If your state or city is not included, you may still be protected. The <a href="https://grow.acorns.com/rent-protection-during-coronavirus/">stimulus provides</a>a 120-day moratorium on evictions for renters whose landlords havemortgages backed or owned by Fannie Mae, Freddie Mac, and other federalentities if the owners are taking advantage of mortgage forbearance offeredthrough the Federal Housing Finance Agency. Landlords receiving forbearancecannot charge late fees or penalties for nonpayment of rent.
+                </p>
+                <p class="body-text">
+                    All of this does not mean that you don’t still owe rent. It is unclear ifyou could be evicted in the future for nonpayment now or if you’ll owe backrent once the pandemic is over. The outcome will likely depend on where youlive. If you’re having trouble affording your rent payments, the best thingto do is to call your landlord to let them know and ask for help.
+                </p>
+                <p class="body-text">
+                    For homeowners with federally backed mortgages, the stimulus bill allows
+                    you to <a href="https://www.consumerfinance.gov/about-us/blog/guide-coronavirus-mortgage-relief-options/">request forbearance</a> through September 23, with the option to extend for another 180 days. If your mortgage is with a private lender, <a href="https://grow.acorns.com/what-to-do-when-you-cant-pay-your-bills-coronavirus/">your best option is to get in touch with them</a> to see if you can work something out.
+                </p>
+            </div>
+        </transition>
+        <transition name="component-fade" mode="out-in">
+            <div v-if="showStudentLoans==true" title="Student loans" key="student-loans">
+                <h2>Student loans</h2>
+                <p class="body-text">
+                    If your student loans are held by the federal government, your payments
+                    have already been automatically suspended through September 30. During this
+                    time, <a href="https://grow.acorns.com/how-to-suspend-student-loan-payments/">your loans will not accrue any interest</a>, so skipping these payments will not cost you any extra money.
+                </p>
+                <p class="body-text">
+                    For privately held loans, <a href="https://grow.acorns.com/private-student-loan-relief-eligibility/">check with your lender</a> to see if they’ve put any measures in place to help borrowers during the
+                    pandemic.
+                </p>
+            </div>
+        </transition>
+        <transition name="component-fade" mode="out-in">
+            <div v-if="showFood==true" title="Help with food and other expenses" key="food">
+                <h2>Help with food and other expenses</h2>
+                <p class="body-text">
+                    If you are having trouble paying your regular bills, reach out to your
+                    creditors as soon as possible. <a href="https://grow.acorns.com/how-to-pay-bills-during-the-coronavirus-outbreak/">Many banks, utilities, and insurance companies are offering relief</a> from things like credit card bills, insurance premiums, and auto payments if you call and ask. If you are having difficulty making these payments, call as soon as possible to avoid paying extra fees.
+                </p>
+                <p class="body-text">
+                    Call internet, cellphone, and other providers, too, to see if you can negotiate a lower rate.
+                </p>
+                <p class="body-text">
+                    If you need help with food and other basic necessities, <a href="https://grow.acorns.com/how-to-save-money-cooking-at-home">try these money-saving tips
+                    </a>to lower your food costs. <a href="https://grow.acorns.com/grocery-chain-ceo-you-can-ignore-many-expiration-dates/"
+                    >Learn how to interpret expiration dates</a> so that you don’t waste food that is still safe to eat.
+                </p>
+                <p class="body-text">
+                    For additional help, <a href="https://www.feedingamerica.org/find-your-local-foodbank">look for a local food pantry</a> and see if you <a href="https://www.usa.gov/food-help">qualify for government food assistance</a>. Check to see if schools near you are providing free meals while they’re closed. In New York City, for example, <a
+                        href="https://www.nbcnewyork.com/news/coronavirus/nyc-set-to-turn-schools-into-childcare-centers-for-kids-of-first-responders-healthcare-workers/2335687/">everyone is eligible to pick up three free meals per day</a>, regardless of whether they have children in public schools.
+                </p>
+                <div>
+            </div>
+        </transition>
+        <transition name="component-fade" mode="out-in">
+            <div v-if="showHealthInsurance==true" title="Health insurance" key="health-insurance">
+                <h2>Health insurance</h2>
+                <p class="body-text">
+                    If you lost your health insurance along with your job, <a href="https://grow.acorns.com/options-for-health-care-coverage/">you have a few options</a>.
+                </p>
+                <p class="body-text">
+                    If you’re married and your spouse has access to insurance through their job, you should be able to join their plan, even if your spouse was previously on your plan. A job loss is considered a qualifying life event, which opens up a special enrollment period outside of the normal time frame.
+                </p>
+                <p class="body-text">
+                    If you’re under the age of 26, check to see if you can join a parent’s plan.
+                </p>
+                <p class="body-text">
+                    Depending on where you live and your income, you may be eligible for Medicaid. Use the <a href="https://www.healthcare.gov/lower-costs/">government’s calculator</a> to see if you qualify.
+                </p>
+                <p class="body-text">
+                    Though it’s expensive, you should have access to an additional 18 months of health insurance from your previous job through COBRA. Under COBRA, you can continue using your existing or previous plan, but you’ll be responsible for paying the entire premium rather than splitting it with your employer. Reach out to your former employer’s HR office for more information.
+                </p>
+                <p class="body-text">
+                    You might be able to find a cheaper option than COBRA by checking your state’s health insurance marketplace. Even if you quit or got fired, losing your job-based insurance qualifies you for a <a ref="https://www.healthcare.gov/coverage-outside-open-enrollment/special-enrollment-period/">special enrollment period</a>. You can also see if you <a href="https://www.kff.org/interactive/subsidy-calculator/">qualify for subsidies</a> to help offset the cost.
+                </p>
+            </div>
+        </transition>
+        <transition name="component-fade" mode="out-in">
+            <div v-if="showWithdrawal==true" title="Retirement account withdrawal" key="retirement-withdrawal">
+                <h2>Retirement account withdrawal</h2>
+                <p class="body-text">
+                    Financial experts recommend you <a href="https://www.cnbc.com/2017/08/28/the-cost-of-tapping-your-retirement-accounts-early.html">only withdraw from your retirement accounts as a last resort</a>. If you have no other options, though, the stimulus bill provides some relief for those taking money out of an IRA or 401(k).
+                </p>
+                <p class="body-text">
+                    If you’re struggling financially because of the outbreak, you can withdraw up to $100,000 this year without the usual 10% penalty. You will be able to spread out any income taxes you owe on the money over three years from the date you made the withdrawal. If your circumstances change, you can put the money back into the account before the three years are up without running into the usual annual contribution limits.
+                </p>
+                <p class="body-text">
+                    Alternatively, you can borrow up to $100,000 from your workplace retirement plan through September 23. Normally the limit is half your account balance.
+                </p>
+            </div>
         </transition>
     </div>
 
@@ -112,7 +251,7 @@
     
   <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
   <!--build:js js/main.min.js -->
-  <script src="js/side-hustle-quiz_main.js"></script>
+  <script src="js/covid-financial-help_main.js"></script>
   <!-- endbuild -->
 </body>
 </html>
